@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 import Person from './Person/Person.js'
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary.js'
 
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
       {id: 'dsfgsd', name: 'Nicklas', age: 29},
       {id: 'hgffd', name: 'Viktor', age: 29},
     ],
+    otherState: "some other state",
     showPersons: false
 
   }
@@ -31,13 +33,6 @@ class App extends Component {
 
     this.setState( {persons: persons});
 
-    this.setState({
-      persons: [
-        {name: 'Adam', age: 30},
-        {name: event.target.value, age: 29},
-        {name: 'Viktor', age: 29},
-      ]
-    })
   }
 
   deletePersonHandler = (personIndex) => {
@@ -64,12 +59,13 @@ class App extends Component {
         <div>
           {
             this.state.persons.map((person, index) => {
-              return <Person 
+              return <ErrorBoundary key={person.id}>
+                <Person 
               click={() => this.deletePersonHandler(index)}
               name={person.name}
               age={person.age}
-              key={person.id}
               changed={(event) => this.nameChangedHandler(event, person.id)}/>
+              </ErrorBoundary>
             })}
         </div>
       );
@@ -81,10 +77,10 @@ class App extends Component {
     const assignedClasses = []
 
     if (this.state.persons.length <= 2) {
-      classes.push('red') // classes = ['red']
+      assignedClasses.push(classes.red) // classes = ['red']
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold') //classes = ['red', 'bold']
+      assignedClasses.push(classes.bold) //classes = ['red', 'bold']
     }
 
     return (

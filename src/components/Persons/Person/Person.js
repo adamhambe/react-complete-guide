@@ -1,16 +1,18 @@
-import React from 'react'
+import React, {Component} from 'react'
 import classes from './Person.css'
 
-const person = (props) => {
+class Person extends Component {
 
-    return (
-        <div className={classes.Person}>
-            <p onClick={props.click}>Hej jag heter {props.name} och är {props.age} år gammal</p>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name}></input>
-        </div>
-        
-    )
+    render() {
+        console.log('[Person.js] rendering...')
+        return (
+            <div className={classes.Person}>
+                <p onClick={this.props.click}>Hej jag heter {this.props.name} och är {this.props.age} år gammal</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name}></input>
+            </div>   
+        )
+    }
 }
 
-export default person;
+export default Person;

@@ -1,7 +1,12 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import Person from './Person/Person.js'
 
-class Persons extends Component {
+/* PureComponent does a complete shouldComponentUpdate check with all props like:
+    //         nextProps.persons !== this.props.persons ||
+    //         nextProps.changed !== this.props.changed ||
+    //         nextProps.clicked !== this.props.clicked */
+
+class Persons extends PureComponent {
 
     // static getDerivedStateFromProps(props, state) {
     //     console.log('[Persons.js] getDerivedStateFromProps')
@@ -12,16 +17,19 @@ class Persons extends Component {
     //     console.log('[Persons.js] componentWillReceiveProps', props)
     // }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[Persons.js] shouldComponentUpdate')
-        // Compares the next set of props with our current set of props
-        // This would indicate a change if they are not the same and would thus return true
-        if (nextProps.persons !== this.props.persons) {
-            return true
-        } else {
-            return false
-        }
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[Persons.js] shouldComponentUpdate')
+    //     // Compares the next set of props with our current set of props
+    //     // This would indicate a change if they are not the same and would thus return true
+    //     if (
+    //         nextProps.persons !== this.props.persons ||
+    //         nextProps.changed !== this.props.changed ||
+    //         nextProps.clicked !== this.props.clicked) {
+    //         return true
+    //     } else {
+    //         return false
+    //     }
+    // }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log('[Persons.js] getSnapshotBeforeUpdate')

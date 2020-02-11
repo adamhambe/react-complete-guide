@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import classes from './Person.css'
 import withClass from '../../../hoc/withClass'
 import Aux from '../../../hoc/Auxiliary'
+import AuthContext from '../../../context/auth-context'
+
 
 class Person extends Component {
     constructor(props) {
@@ -10,8 +12,11 @@ class Person extends Component {
         this.inputElementRef = React.createRef()
     }
 
+    static contextType = AuthContext
+
     componentDidMount() {
         this.inputElementRef.current.focus()
+        console.log(this.context.authenticated)
     }
 
     render() {
@@ -19,6 +24,7 @@ class Person extends Component {
         return (
             // Can also use <Fragment></Fragment> for the same effect as <Aux></Aux>
             <Aux>
+                {this.context.authenticated ? <p>Authenticated!</p> : <p>Please login!</p>}
                 <p onClick={this.props.click}>Hej jag heter {this.props.name} och är {this.props.age} år gammal</p>
                 <p>{this.props.children}</p>
                 <input
